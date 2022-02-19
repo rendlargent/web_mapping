@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>The Island of Wight tourism experience</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
+  <style>
+  html, body, #viewDiv { 
+      padding: 0; 
+      margin: 0; 
+      height: 100%; 
+      width: 100%; 
+    } 
+    p {text-align: center;}
+    div {text-align: center;}
+  </style> 
+  <link rel="stylesheet" 
+href="https://js.arcgis.com/4.22/esri/themes/light/main.css"> 
+  <script src="https://js.arcgis.com/4.22/">
+  </script> 
+ 
+  <script> 
+    require([ 
+      "esri/config", 
+      "esri/WebMap", 
+      "esri/views/MapView", 
+      "esri/widgets/ScaleBar", 
+      "esri/widgets/Legend" 
+ 
+    ], function(esriConfig, WebMap, MapView, ScaleBar, Legend) { 
+ 
+      esriConfig.apiKey = "AAPK32424d1beab94512b209ac6a7109364970D2QZttCIJDr8H6PI6j2du5CdKkja-XoumELu4MZAz1fBUj9pZJOOjq7Cl5S2E-"; 
+ 
+      const webmap = new WebMap({ 
+        portalItem: { 
+          id: "6dd6de84899941ccb32a2f30cdcea672" 
+        } 
+      }); 
+ 
+      const view = new MapView({ 
+        container: "viewDiv", 
+        map: webmap 
+ 
+      }); 
+ 
+      const scalebar = new ScaleBar({ 
+        view: view 
+      }); 
+ 
+      view.ui.add(scalebar, "bottom-left"); 
+ 
+      const legend = new Legend ({ 
+        view: view 
+      }); 
+      view.ui.add(legend, "top-right"); 
+ 
+  }); 
+  </script>
+  </head> 
+<body> 
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <a class="navbar-brand" href="homepage.htm">Home</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="html_mapping.htm">Html mapping</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="ESRI_hosted_kmz.htm">ESRI hosted kmz file mapping</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="ESRI_web.htm">ESRI provided web mapping</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="google_maps.htm">google maps</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="google_maps_kml.htm">google maps using kml file</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="bing_api.htm">Bing api mapping</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="open_street_maps_api.htm">Open street maps api mapping</a>
+      </li>    
+    </ul>
+  </div>  
+</nav>
+
+<div class = 'explanations'>
+  <br>
+  <p>To finish with the ESRI suit, they propose a great tool of web app creation</p>
+  <p>for the creation and update of the map, this is really more visual than to code, and helps a lot the user if he don't know about coding a web map. It can also permit to host it publicly, or let only access to a white list. </p>
+</div>
+<div id="viewDiv"></div> 
+<div class = 'explanations'>
+  <br>
+  <p> The downside of those applications, is that it is really expensive. (The price may vary between enterprises)</p>
+  <p>But this is not the only solution ! google, and other open source suits propose thoses services for free (except the hosting)</p>
+  <p>Google propose also a great tool wich is called 'google analytics'. It permits to gather information on the visitors types of this website. A showcase was on the menu, but Google analytics is currently suspended in europe. This <a class="nav-link" href="https://techstory.in/eu-declares-google-analytics-illegal-heres-why/">article</a> explains why.</p>
+  <p>you can go to the <a class="nav-link" href="google_maps.htm">next page</a></p>
+</div>
+</body> 
+</html>

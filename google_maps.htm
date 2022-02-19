@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>The Island of Wight tourism experience</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+  <style type="text/css">
+    p {text-align: center;}
+    div {text-align: center;}
+  </style>
+
+    
+  <!-- this is where we create the map -->
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script> 
+  <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxdYdFPq-xuFbn5MbGGKb-J6Q82FpzmpY&callback=initMap&v=weekly"
+      async
+    ></script>
+  <style type="text/css"> 
+      /* Always set the map height explicitly to define the size of the div 
+       * element that contains the map. */ 
+      #map { 
+        height: 100%; 
+      } 
+ 
+      /* Optional: Makes the sample page fill the window. */ 
+      html, 
+      body { 
+        height: 100%; 
+        margin: 0; 
+        padding: 0; 
+      } 
+      p {text-align: center;}
+      div {text-align: center;}
+    </style>
+    <script> 
+      let map; 
+      function initMap() {
+      const myLatlng = { lat: 50.686255, lng: -1.279163 };
+      const RydeBeachLatLng = { lat: 50.731840, lng: -1.152448};
+      const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 11,
+        center: myLatlng,
+      });
+      //here we consume the KML hosted on Arcgis server
+      const ctaLayer = new google.maps.KmlLayer({
+        url: "./Soilscape_IOW.kmz",
+        map: map,
+      });
+
+      var myOptions = {
+        center: new google.maps.LatLng(58.33, -98.52),
+        zoom: 11,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+      var kmzLayer = new google.maps.KmlLayer('./Soilscape_IOW.kmz');
+      kmzLayer.setMap(map);
+
+      //Here we wright the pop-up down
+      const contentString1 =
+      '<div id="content">' +
+      '<div id="siteNotice">' +
+      "</div>" +
+      '<h1 id="firstHeading" class="firstHeading">Ryde Beach</h1>' +
+      '<div id="bodyContent">' +
+      "<p><b>Uluru</b>, also referred to as <b>ThE PlAcE tO BeAcH</b>, is a large " +
+      "natural sand formation in the northern part of the " +
+      "Island Of Wight, UK. It recieve billions visitors " +
+      "each year " +
+      "</div>";
+      //here we initiate and create our two markers
+      const marker = new google.maps.Marker({
+        position: RydeBeachLatLng,
+        map,
+        title: "Ryde Beach",
+      });
+      //and then, we create it
+      const infowindow = new google.maps.InfoWindow({
+        content: contentString1,
+        maxWidth: 200,
+      });
+
+      // here, if we are out of the island somehwere in the world, after 3 seconds, resets the map zoom and center
+      map.addListener("center_changed", () => {
+        // 3 seconds after the center of the map has changed, pan back to the
+        // marker.
+        window.setTimeout(() => {
+          map.panTo(marker.getPosition());
+        }, 3000);
+      });
+
+      //here we center the windows by clicking on it
+      marker.addListener("click", () => {
+        map.setCenter(marker.getPosition());
+      });
+
+      //here is the calling of windows by clicking a marker
+      marker.addListener("click", () => {
+      infowindow.open({
+        anchor: marker,
+        map,
+        shouldFocus: false,
+        });
+      });
+    }
+    </script>  
+</head>
+<body>
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <a class="navbar-brand" href="homepage.htm">Home</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="html_mapping.htm">Html mapping</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="ESRI_hosted_kmz.htm">ESRI hosted kmz file mapping</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="ESRI_web.htm">ESRI provided web mapping</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="google_maps.htm">google maps</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="google_maps_kml.htm">google maps using kml file</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="bing_api.htm">Bing api mapping</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="open_street_maps_api.htm">Open street maps api mapping</a>
+      </li>    
+    </ul>
+  </div>  
+</nav>
+
+<div class = 'explanations'>
+  <br>
+  <p>Here is google maps. Everyone knows google maps. Everyone USE google maps</p>
+  <p>This is free, this is really complete, this is great. It can do the things shown precendently, and what is shown here can be down by all the apis shown, however, we dissacated it for readibility purposes</p>
+</div>
+
+<!-- this is where we call the map -->
+<div id="map"></div> 
+
+<div class = 'explanations'>
+  <br>
+  <p> if you manipulated the mapl and went to France or anywhere other than the island, you can see that the map window is bringany lost souls to the Island in 3 seconds. This is called technology !</p><!-- you are in a cage ahahahha-->
+  <p>You can also click on the red dot showing the Ryde beach. A pop-up will be displayed, and the map will center on the red dot. If you loose your way around the earth, this time the google big brother wil bring you back to the red dot.</p>
+  <br>
+  <p>This could be not the optimum api to use for the Island Of Wight Council. Since they have began a full transparency campaign, google hasn't. And yes it is free, but the cost is in fact by giving the personal data of the users to google. A reflection can be emitted on this subject</p>
+  <p>you can go to the <a class="nav-link" href="google_maps_kml.htm">next page</a>.</p>
+</div>
+
+<div class="jumbotron text-center" style="margin-bottom:0">
+  <p>KOUISINE lmtd. </p>
+  <p>a bug or a typo? or any feedback? please write us!</p>
+  <p>ericdavoutdauerstaedt@gmail.com</p>
+</div>
+
+</body>
+</html>
